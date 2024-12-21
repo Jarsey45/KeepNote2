@@ -5,32 +5,39 @@ import {
 	CreateDateColumn,
 	UpdateDateColumn,
 	ManyToOne,
+	ManyToMany,
 } from "typeorm";
-import { User } from "./User";
+import { User, } from "./User";
 
 @Entity()
 export class Note {
 	@PrimaryGeneratedColumn()
-	id!: number;
+		id!: number;
 
 	@Column()
-	title!: string;
+		title!: string;
 
 	@Column("text")
-	content!: string;
+		content!: string;
 
 	@Column()
-	color!: string;
+		color!: string;
 
 	@ManyToOne(() => User, (user) => user.notes)
-	user!: User;
+		user!: User;
 
 	@CreateDateColumn()
-	createdAt!: Date;
+		createdAt!: Date;
 
 	@UpdateDateColumn()
-	updatedAt!: Date;
+		updatedAt!: Date;
 
-	@Column("simple-array", { nullable: true })
-	tags!: string[];
+	@Column("simple-array", { nullable: true, })
+		tags!: string[];
+
+	@Column({ type: "timestamp", nullable: true, })
+		calendarDate!: Date | null;
+
+	@ManyToMany(() => User, (user) => user.sharedNotes)
+		sharedWith!: User[];
 }

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   app:
@@ -10,6 +10,7 @@ services:
     volumes:
       - ./app:/app
       - /app/node_modules
+      - /app/.next
     environment:
       - NODE_ENV=${NODE_ENV}
       - DB_HOST=${DB_HOST}
@@ -20,6 +21,8 @@ services:
       - REDIS_HOST=${REDIS_HOST}
       - REDIS_PORT=${REDIS_PORT}
       - JWT_SECRET=${JWT_SECRET}
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - postgres
       - redis

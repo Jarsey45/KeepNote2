@@ -1,14 +1,6 @@
-import { NextResponse } from "next/server";
-import { initDB } from "@/lib/db";
-import { Note } from "@/entities/Note";
-
-export async function GET() {
-	const dataSource = await initDB();
-	const notes = await dataSource.getRepository(Note).find({
-		relations: ["user"],
-	});
-	return NextResponse.json(notes);
-}
+import { NextResponse, } from "next/server";
+import { initDB, } from "@/lib/db";
+import { Note, } from "@/entities/Note";
 
 export async function POST(request: Request) {
 	const dataSource = await initDB();

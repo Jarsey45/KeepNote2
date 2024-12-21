@@ -1,0 +1,38 @@
+{
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#7c81e0",
+		"activityBar.background": "#7c81e0",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#9b252b",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"commandCenter.border": "#e7e7e799",
+		"sash.hoverBorder": "#7c81e0",
+		"statusBar.background": "#535ad6",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#7c81e0",
+		"statusBarItem.remoteBackground": "#535ad6",
+		"statusBarItem.remoteForeground": "#e7e7e7",
+		"titleBar.activeBackground": "#535ad6",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#535ad699",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#535ad6",
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.tabSize": 2,
+	"editor.bracketPairColorization.enabled": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.useTabs": true,
+	"prettier.tabWidth": 2,
+	"prettier.bracketSameLine": true,
+	"prettier.trailingComma": "all",
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.autoIndent": "keep",
+		"editor.formatOnSave": true,
+		"prettier.useTabs": false,
+		"prettier.singleQuote": true,
+	}
+}

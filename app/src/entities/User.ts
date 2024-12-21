@@ -6,26 +6,33 @@ import {
 	ManyToMany,
 	JoinTable,
 } from "typeorm";
-import { Note } from "./Note";
+import { Note, } from "./Note";
 
 @Entity()
 export class User {
 	@PrimaryGeneratedColumn()
-	id!: number;
+		id!: number;
 
-	@Column({ unique: true })
-	email!: string;
+	@Column({ unique: true, })
+		email!: string;
 
 	@Column()
-	password!: string;
+		password!: string;
 
-	@Column({ default: "default" })
-	role!: "default" | "admin";
+	@Column({ default: "default", })
+		role!: "default" | "admin";
+
+	@Column({ nullable: true, })
+		nickname!: string;
 
 	@OneToMany(() => Note, (note) => note.user)
-	notes!: Note[];
+		notes!: Note[];
 
 	@ManyToMany(() => User)
 	@JoinTable()
-	friends!: User[];
+		friends!: User[];
+
+	@ManyToMany(() => Note, (note) => note.sharedWith)
+	@JoinTable()
+		sharedNotes!: Note[];
 }
