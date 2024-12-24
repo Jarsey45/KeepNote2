@@ -1,0 +1,14 @@
+@use '@/app/styles/vars';
+
+#authCardContainer {
+	background-color: vars.$keepnote-bg;
+
+	.highlight {
+		font-weight: 700;
+		color: vars.$keepnote-accent;
+	}
+
+	#authCard {
+		background-color: vars.$keepnote-secondary;
+	}
+}

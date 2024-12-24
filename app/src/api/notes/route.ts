@@ -1,6 +1,6 @@
-import { NextResponse, } from "next/server";
-import { initDB, } from "@/lib/db";
-import { Note, } from "@/entities/Note";
+import { NextResponse } from 'next/server';
+import { initDB } from '@/lib/db';
+import { Note } from '@/entities/Note';
 
 export async function POST(request: Request) {
 	const dataSource = await initDB();

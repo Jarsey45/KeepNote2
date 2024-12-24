@@ -1,16 +1,12 @@
-import type { Metadata, } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.scss';
 
 export const metadata: Metadata = {
-	title: "KeepNote - Your Personal Note Taking App",
-	description: "A modern note-taking application for organizing your thoughts",
+	title: 'KeepNote - Your Personal Note Taking App',
+	description: 'A modern note-taking application for organizing your thoughts',
 };
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
 			<body>{children}</body>

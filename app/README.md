@@ -5,6 +5,7 @@ KeepNote is a full-stack note-taking application built with Next.js, React, Type
 ## Features
 
 - **User Authentication**
+
   - Register with email and password
   - Login/Logout functionality
   - Role-based access (Default User and Admin)
@@ -12,6 +13,7 @@ KeepNote is a full-stack note-taking application built with Next.js, React, Type
   - Account management (nickname change, account removal)
 
 - **Note Management**
+
   - Create notes with random pastel colors
   - Automatic creation and update timestamps
   - Rich text content support
@@ -19,6 +21,7 @@ KeepNote is a full-stack note-taking application built with Next.js, React, Type
   - Calendar integration for scheduled notes
 
 - **Social Features**
+
   - Add other users as friends
   - Share notes with friends
   - Shared notes appear on friends' dashboards
@@ -40,6 +43,7 @@ KeepNote is a full-stack note-taking application built with Next.js, React, Type
 ## Database Schema
 
 ### User Table
+
 ```sql
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
@@ -50,6 +54,7 @@ CREATE TABLE "user" (
 ```
 
 ### Note Table
+
 ```sql
 CREATE TABLE "note" (
     "id" SERIAL PRIMARY KEY,
@@ -64,6 +69,7 @@ CREATE TABLE "note" (
 ```
 
 ### User Friends Relationship Table
+
 ```sql
 CREATE TABLE "user_friends_user" (
     "userId_1" INTEGER NOT NULL,
@@ -101,12 +107,14 @@ erDiagram
 ## Getting Started
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/keepnote.git
 cd keepnote
 ```
 
 2. Create `.env` file with the following variables:
+
 ```env
 NODE_ENV=development
 APP_PORT=3000
@@ -124,11 +132,13 @@ JWT_SECRET=your-secret-key
 ```
 
 3. Start the application:
+
 ```bash
 docker-compose up -d
 ```
 
 4. Access the application:
+
 - Web App: http://localhost:3000
 - PGAdmin: http://localhost:5050
 - Swagger API Documentation: http://localhost:3000/api-docs
@@ -144,6 +154,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Credits
 
 Developed with ❤️ using:
+
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
 - [TypeORM](https://typeorm.io/)

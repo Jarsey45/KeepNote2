@@ -24,15 +24,28 @@
 	"editor.tabSize": 2,
 	"editor.bracketPairColorization.enabled": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"javascript.format.semicolons": "insert",
+	"typescript.format.semicolons": "insert",
+	"typescript.preferences.quoteStyle": "single",
+	"javascript.preferences.quoteStyle": "single",
 	"prettier.useTabs": true,
 	"prettier.tabWidth": 2,
 	"prettier.bracketSameLine": true,
 	"prettier.trailingComma": "all",
+	"prettier.singleQuote": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.autoIndent": "keep",
+		"editor.formatOnSave": true,
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.autoIndent": "keep",
+		"editor.formatOnSave": true,
+	},
 	"[yaml]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.autoIndent": "keep",
 		"editor.formatOnSave": true,
-		"prettier.useTabs": false,
-		"prettier.singleQuote": true,
 	}
 }

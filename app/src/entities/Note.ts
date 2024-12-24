@@ -6,38 +6,33 @@ import {
 	UpdateDateColumn,
 	ManyToOne,
 	ManyToMany,
-} from "typeorm";
-import { User, } from "./User";
+} from 'typeorm';
+import { User } from './User';
+import { BaseEntity } from './base.entity';
 
 @Entity()
-export class Note {
-	@PrimaryGeneratedColumn()
-		id!: number;
+export class Note extends BaseEntity {
+	@PrimaryGeneratedColumn('uuid')
+	id!: number;
 
 	@Column()
-		title!: string;
+	title!: string;
 
-	@Column("text")
-		content!: string;
+	@Column('text')
+	content!: string;
 
 	@Column()
-		color!: string;
+	color!: string;
 
 	@ManyToOne(() => User, (user) => user.notes)
-		user!: User;
+	user!: User;
 
-	@CreateDateColumn()
-		createdAt!: Date;
+	@Column('simple-array', { nullable: true })
+	tags!: string[];
 
-	@UpdateDateColumn()
-		updatedAt!: Date;
-
-	@Column("simple-array", { nullable: true, })
-		tags!: string[];
-
-	@Column({ type: "timestamp", nullable: true, })
-		calendarDate!: Date | null;
+	@Column({ type: 'timestamp', nullable: true })
+	calendarDate!: Date | null;
 
 	@ManyToMany(() => User, (user) => user.sharedNotes)
-		sharedWith!: User[];
+	sharedWith!: User[];
 }
