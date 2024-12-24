@@ -1,11 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
-import { Note } from './Note';
-import { BaseEntity } from './base.entity';
+import type { Relation } from 'typeorm';
+import { Note } from '@/entities/Note';
+import { BaseEntity } from '@/entities/base.entity';
 
 @Entity()
 export class User extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
-	id!: number;
+	id!: string;
 
 	@Column({ unique: true })
 	email!: string;
@@ -24,9 +25,9 @@ export class User extends BaseEntity {
 
 	@ManyToMany(() => User)
 	@JoinTable()
-	friends!: User[];
+	friends!: Relation<User>[];
 
 	@ManyToMany(() => Note, (note) => note.sharedWith)
 	@JoinTable()
-	sharedNotes!: Note[];
+	sharedNotes!: Relation<Note>[];
 }

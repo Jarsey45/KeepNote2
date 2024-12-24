@@ -1,19 +1,12 @@
-import {
-	Entity,
-	PrimaryGeneratedColumn,
-	Column,
-	CreateDateColumn,
-	UpdateDateColumn,
-	ManyToOne,
-	ManyToMany,
-} from 'typeorm';
-import { User } from './User';
-import { BaseEntity } from './base.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from 'typeorm';
+import type { Relation } from 'typeorm';
+import { User } from '@/entities/User';
+import { BaseEntity } from '@/entities/base.entity';
 
 @Entity()
 export class Note extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
-	id!: number;
+	id!: string;
 
 	@Column()
 	title!: string;
@@ -25,7 +18,7 @@ export class Note extends BaseEntity {
 	color!: string;
 
 	@ManyToOne(() => User, (user) => user.notes)
-	user!: User;
+	user!: Relation<User>;
 
 	@Column('simple-array', { nullable: true })
 	tags!: string[];
@@ -34,5 +27,5 @@ export class Note extends BaseEntity {
 	calendarDate!: Date | null;
 
 	@ManyToMany(() => User, (user) => user.sharedNotes)
-	sharedWith!: User[];
+	sharedWith!: Relation<User>[];
 }
