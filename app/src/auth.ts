@@ -1,38 +1,43 @@
-import NextAuth from 'next-auth';
+import NextAuth, { AuthError } from 'next-auth';
 import { TypeORMAdapter } from '@auth/typeorm-adapter';
 import Credentials from 'next-auth/providers/credentials';
 import { UserRepository } from '@/repositories/UserRepository';
 import bcrypt from 'bcrypt';
-import { AppDataSource } from './lib/db';
-
-if (!process.env.AUTH_TYPEORM_CONNECTION) {
-	throw new Error('AUTH_TYPEORM_CONNECTION environment variable is not defined');
-}
+import { AppDataSource, initDB } from '@/lib/db';
+import { signInSchema } from '@/lib/zod';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
 	providers: [
 		Credentials({
 			async authorize(credentials) {
-				const { email, password } = credentials as {
-					email: string;
-					password: string;
-				};
+				await initDB();
+				const { email, password } = await signInSchema.parseAsync(credentials);
 
 				const userRepository = new UserRepository();
 				const user = await userRepository.findByEmail(email);
 
-				if (!user) return null;
+				if (!user) throw new AuthError('Email not found.');
 
 				const passwordMatch = await bcrypt.compare(password, user.password);
+				console.log(passwordMatch);
 
-				if (!passwordMatch) return null;
+				if (!passwordMatch) throw new AuthError('Invalid credentials.');
 				return user;
 			},
 		}),
 	],
 	adapter: TypeORMAdapter(AppDataSource.options),
-	session: { strategy: 'jwt' },
+	session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
 	pages: {
 		signIn: '/login',
+		error: '/login',
+	},
+	callbacks: {
+		async jwt({ token, user }) {
+			if (user) {
+				token.id = user.id;
+			}
+			return token;
+		},
 	},
 });

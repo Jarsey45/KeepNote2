@@ -44,7 +44,6 @@ export default function RegisterPage() {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(data),
 			});
-			console.log(await response.text());
 
 			if(!response.ok) {
 				const error = await response.json();
