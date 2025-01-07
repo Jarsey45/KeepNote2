@@ -13,10 +13,10 @@ export async function POST(request: NextRequest) {
 
 		// It is checked in zod schema, but to be sure
 		if (password !== confirmPassword)
-			return {
+			return NextResponse.json({
 				status: 400,
 				body: { message: 'Passwords do not match' },
-			};
+			});
 
 		const existingUser = await userRepository.findByEmail(email);
 

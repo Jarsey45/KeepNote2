@@ -1,4 +1,5 @@
 import { Note } from '@/entities/Note';
+import { User } from '@/entities/User';
 import { BaseRepository } from './BaseRepository';
 import { FindOptionsWhere } from 'typeorm';
 
@@ -7,9 +8,9 @@ export class NoteRepository extends BaseRepository<Note> {
 		super(Note);
 	}
 
-	async findByUser(userId: string | number): Promise<Note[]> {
+	async findByUser(user: User): Promise<Note[]> {
 		return this.repository.find({
-			where: { user: userId } as unknown as FindOptionsWhere<Note>,
+			where: { user } as unknown as FindOptionsWhere<Note>,
 			relations: ['sharedWith'],
 		});
 	}
