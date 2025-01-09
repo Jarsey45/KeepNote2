@@ -3,8 +3,10 @@
 import React, { FC, MouseEvent, useEffect, useRef, useState } from 'react';
 import { MoreHorizontal, Calendar, Trash2, Edit, Share2 } from 'lucide-react';
 import { getRandomPastelColor } from '@/utils/_colors';
+import { eventEmitter } from '@/utils/_emitter';
 
 interface NoteProps {
+	id: string;
 	title?: string;
 	content?: string;
 	date?: string;
@@ -22,6 +24,7 @@ interface MenuClickHandler {
 const randomColorDefault = getRandomPastelColor();
 
 const Note: FC<NoteProps> = ({
+	id = '-1',
 	title = 'Note Title',
 	content = 'Note content',
 	date = new Date().toLocaleDateString('en-US', {
@@ -60,13 +63,30 @@ const Note: FC<NoteProps> = ({
 		setShowMenu(!showMenu);
 	};
 
-	const handleActionClick: ActionClickHandler = (action) => {
-		console.log(action);
+	const handleActionClick: ActionClickHandler = async (action) => {
+		switch (action) {
+			case 'delete':
+				const response = await fetch(`/api/notes/${id}`, {
+					method: 'DELETE',
+					headers: { 'Content-Type': 'application/json' },
+				});
+
+				if(!response.ok) throw new Error('Failed to delete note'); //TODO: show some toast?
+
+				console.log(await response.json());
+				eventEmitter.emit('deleteNote');
+				break;
+			default:
+				console.warn('Action not defined');
+				break;
+		}
 		setShowMenu(false);
 	};
 
 	return (
-		<div className={`relative w-64 h-64 rounded-lg p-6 shadow-lg snap-start scroll-ml-4 shrink-0 first:pl-4 last:pr-4" ${color}`}>
+		<div
+			className={`relative w-64 h-64 rounded-lg p-6 shadow-lg snap-start scroll-ml-4 shrink-0 first:pl-4 last:pr-4" ${color}`}
+		>
 			{/* Header with title and More button */}
 			<div className="flex justify-between items-start">
 				<div className="space-y-1">

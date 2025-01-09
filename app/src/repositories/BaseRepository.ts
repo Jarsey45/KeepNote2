@@ -1,6 +1,6 @@
 import { DeepPartial, EntityTarget, FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
 
-import DbRepository from './interfaces/DbRepository';
+import DbRepository from '@/repositories/interfaces/DbRepository';
 import { AppDataSource } from '@/lib/db';
 
 export class BaseRepository<T extends ObjectLiteral> implements DbRepository<T> {

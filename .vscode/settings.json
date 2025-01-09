@@ -35,17 +35,17 @@
 	"prettier.singleQuote": true,
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.autoIndent": "keep",
-		"editor.formatOnSave": true,
+		"editor.autoIndent": "full",
+		"editor.formatOnSave": true
 	},
 	"[typescriptreact]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.autoIndent": "keep",
-		"editor.formatOnSave": true,
+		"editor.autoIndent": "full",
+		"editor.formatOnSave": true
 	},
 	"[yaml]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.autoIndent": "keep",
-		"editor.formatOnSave": true,
+		"editor.formatOnSave": true
 	}
 }

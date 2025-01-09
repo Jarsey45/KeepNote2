@@ -3,7 +3,7 @@
 import { Plus } from 'lucide-react';
 import NoteForm, { FormData } from '@/app/components/shared/NoteForm';
 import { useState } from 'react';
-import { getUserSession } from '@/utils/_auth';
+import { eventEmitter } from '@/utils/_emitter';
 
 const FloatingActionButton = () => {
 	const [isFormOpen, setIsFormOpen] = useState(false);
@@ -12,12 +12,13 @@ const FloatingActionButton = () => {
 		const response = await fetch('/api/notes', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data)
+			body: JSON.stringify(data),
 		});
 		const json = await response.json();
 
 		// await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate API call
 		console.log('New note:', json);
+		eventEmitter.emit('newNote');
 	};
 
 	return (

@@ -9,12 +9,19 @@ import { Note } from '@/entities/Note';
 
 export async function POST(request: Request) {
 	await initDB();
+
 	const session = await auth();
+	if (!session?.user?.email)
+		return NextResponse.json({
+			status: 401,
+			body: { message: 'Unauthorized' },
+		});
+
 	const body = await request.json();
 
 	// get user id
 	const userRepo = new UserRepository();
-	const user = await userRepo.findByEmail(session?.user?.email ?? '');
+	const user = await userRepo.findByEmail(session.user.email ?? '');
 	if (!user)
 		return NextResponse.json({
 			status: 400,
@@ -57,7 +64,7 @@ export async function GET(request: Request) {
 
 		// get user id
 		const userRepo = new UserRepository();
-		const user = await userRepo.findByEmailWithRelations(session?.user?.email ?? '');
+		const user = await userRepo.findByEmail(session?.user?.email ?? '');
 
 		if (!user)
 			return NextResponse.json({
@@ -65,7 +72,8 @@ export async function GET(request: Request) {
 				body: { message: 'User not found' },
 			});
 
-		const {notes, total} = await userRepo.findNotesWithPagination(user, { page, limit });
+		const noteRepo = new NoteRepository();
+		const { notes, total } = await noteRepo.findByUserWithPagination(user, { page, limit });
 
 		const validatedNotes = NotesResponseSchema.parse(notes);
 		return NextResponse.json(
