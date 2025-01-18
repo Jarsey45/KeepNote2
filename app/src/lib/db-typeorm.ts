@@ -16,16 +16,6 @@ export const AppDataSource = new DataSource({
 	synchronize: false,//process.env.NODE_ENV === 'development',
 	logging: process.env.NODE_ENV === 'development',
 	entities: [Note, User],
-	// migrations: ['src/migrations/**/*.ts'],
-	// migrationsTableName: 'migrations',
+	migrations: ['src/migrations/**/*.ts'],
+	migrationsTableName: 'migrations',
 });
-
-let initialized = false;
-
-export async function initDB() {
-	if (!initialized) {
-		await AppDataSource.initialize();
-		initialized = true;
-	}
-	return AppDataSource;
-}

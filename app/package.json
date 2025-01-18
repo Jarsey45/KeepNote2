@@ -8,8 +8,8 @@
 		"start": "next start",
 		"lint": "next lint",
 		"typeorm": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} typeorm-ts-node-commonjs",
-		"migration:generate": "npm run typeorm migration:generate -- -d src/lib/db.ts ./src/migrations/Migration",
-		"migration:run": "npm run typeorm migration:run -- -d src/lib/db.ts",
+		"migration:generate": "npm run typeorm migration:generate -- -d src/lib/db-typeorm.ts ./src/migrations/Migration",
+		"migration:run": "npm run typeorm migration:run -- -d src/lib/db-typeorm.ts",
 		"migration:revert": "npm run typeorm migration:revert",
 		"test": "jest"
 	},

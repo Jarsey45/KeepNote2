@@ -15,9 +15,11 @@ interface NoteFormProps {
 	isOpen: boolean;
 	onClose: () => void;
 	onSubmit: (data: FormData) => Promise<void>;
+	initialData?: FormData; // Optional for creation, required for editing
+	mode?: 'create' | 'edit';
 }
 
-const NoteForm = ({ isOpen, onClose, onSubmit }: NoteFormProps) => {
+const NoteForm = ({ isOpen, onClose, onSubmit, initialData, mode = 'create' }: NoteFormProps) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const {
 		register,
@@ -26,6 +28,7 @@ const NoteForm = ({ isOpen, onClose, onSubmit }: NoteFormProps) => {
 		reset,
 	} = useForm<FormData>({
 		resolver: zodResolver(schema),
+		defaultValues: initialData,
 	});
 
 	const handleFormSubmit = async (data: FormData) => {
@@ -35,7 +38,7 @@ const NoteForm = ({ isOpen, onClose, onSubmit }: NoteFormProps) => {
 			reset();
 			onClose();
 		} catch (error) {
-			console.error('Failed to submit note:', error);
+			console.error(`Failed to ${mode} note:`, error);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -43,8 +46,10 @@ const NoteForm = ({ isOpen, onClose, onSubmit }: NoteFormProps) => {
 
 	if (!isOpen) return null;
 
+	const isEditMode = mode === 'edit';
+
 	return (
-		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 			<div className="bg-white rounded-lg p-6 w-full max-w-md relative">
 				<button
 					onClick={onClose}
@@ -54,7 +59,7 @@ const NoteForm = ({ isOpen, onClose, onSubmit }: NoteFormProps) => {
 					<X className="w-5 h-5" />
 				</button>
 
-				<h2 className="text-xl font-semibold mb-4">Create New Note</h2>
+				<h2 className="text-xl font-semibold mb-4">{isEditMode ? 'Edit Note' : 'Create New Note'}</h2>
 
 				<form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
 					<div>
@@ -86,10 +91,10 @@ const NoteForm = ({ isOpen, onClose, onSubmit }: NoteFormProps) => {
 						{isSubmitting ? (
 							<>
 								<Loader2 className="w-4 h-4 mr-2 animate-spin" />
-								Creating Note...
+								{isEditMode ? 'Updating Note...' : 'Creating Note...'}
 							</>
 						) : (
-							'Create Note'
+							isEditMode ? 'Update Note' : 'Create Note'
 						)}
 					</button>
 				</form>

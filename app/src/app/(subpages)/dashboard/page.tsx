@@ -3,6 +3,7 @@
 import Note from '@/app/components/shared/Note';
 import NoteSkeletonGrid from '@/app/components/shared/skeleton/NoteSkeletons';
 import type { Note as NoteType } from '@/entities/Note';
+import { BasicResponse } from '@/types/NextResponse';
 import { eventEmitter } from '@/utils/_emitter';
 import { useEffect, useRef, useState, WheelEvent } from 'react';
 
@@ -32,7 +33,10 @@ export default function Page() {
 				method: 'GET',
 			});
 
-			if (!response.ok) throw new Error('Failed to fetch notes');
+			if (!response.ok) {
+				const errorData : BasicResponse = await response.json();
+				throw new Error(`Failed to fetch notes [${errorData.body.message}]`);
+			}
 
 			const { data, meta }: NotesResponse = await response.json();
 
@@ -50,7 +54,7 @@ export default function Page() {
 		}
 	};
 
-	useEffect(() => {
+	useEffect(() => { //TODO maybe refetch all when changing anything, react will handle resolution by key
 		const addNoteCB = () => {
 			console.log('New note is available via EventEmitter. Fetching...');
 			setHasMore(true);

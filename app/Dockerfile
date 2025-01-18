@@ -9,6 +9,12 @@ RUN npm install
 
 COPY . .
 
+RUN echo "y" | npx auth secret
+
+# Make the startup script executable
+COPY startApp.sh .
+RUN chmod +x startApp.sh
+
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["./startApp.sh"]

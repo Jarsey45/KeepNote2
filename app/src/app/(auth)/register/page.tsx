@@ -8,7 +8,8 @@ import { AuthInput } from '@/app/components/auth/AuthInput';
 import { AuthButton } from '@/app/components/auth/AuthButton';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { useRouter } from 'next/compat/router';
+import { useRouter } from 'next/navigation';
+import { BasicResponse } from '@/types/NextResponse';
 
 const registerSchema = z
 	.object({
@@ -39,7 +40,7 @@ export default function RegisterPage() {
 		setIsLoading(true);
 
 		try {
-			const response = await fetch('http://localhost:3000/api/auth/register', {
+			const response = await fetch('/api/auth/register', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(data),
@@ -50,7 +51,9 @@ export default function RegisterPage() {
 				throw new Error(error.message || 'Registration failed');
 			}
 
-			if(router)
+			const json : BasicResponse = await response.json();
+
+			if(json.status === 200)
 				router.push('/login');
 		} catch(error: unknown) {
 			if(error instanceof Error) {

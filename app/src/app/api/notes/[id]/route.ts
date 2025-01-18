@@ -59,3 +59,10 @@ export async function DELETE(request: Request, { params }: SlugIDParams) {
 		});
 	}
 }
+
+export async function PUT(request: Request, { params }: SlugIDParams) {
+	const noteId = (await params).id;
+	console.log('Note ID: %s', noteId);
+
+	console.log(request);
+}
