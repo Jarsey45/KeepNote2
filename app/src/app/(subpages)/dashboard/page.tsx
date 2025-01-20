@@ -5,7 +5,7 @@ import NoteSkeletonGrid from '@/app/components/shared/skeleton/NoteSkeletons';
 import type { Note as NoteType } from '@/entities/Note';
 import { BasicResponse } from '@/types/NextResponse';
 import { eventEmitter } from '@/utils/_emitter';
-import { useEffect, useRef, useState, WheelEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, WheelEvent } from 'react';
 
 interface NotesResponse {
 	data: NoteType[];
@@ -16,17 +16,29 @@ interface NotesResponse {
 	};
 }
 
+interface FetchState {
+	page: number;
+	hasMore: boolean;
+	loading: boolean;
+}
+
 export default function Page() {
 	const [notes, setNotes] = useState<NoteType[]>([]);
-	const [page, setPage] = useState(1);
-	const [hasMore, setHasMore] = useState(true);
-	const [loading, setLoading] = useState(false);
+	const [fetchState, setFetchState] = useState<FetchState>({
+		page: 1,
+		hasMore: true,
+		loading: false,
+	} as FetchState);
+
 	const loaderRef = useRef(null);
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const fetchNotes = async () => {
+	const fetchNotes = useCallback(async () => {
+		const { loading, hasMore, page } = fetchState;
+
 		if (loading || !hasMore) return;
-		setLoading(true);
+
+		setFetchState((prev) => ({ ...prev, loading: true }));
 
 		try {
 			const response = await fetch(`/api/notes?page=${page}&limit=4`, {
@@ -34,7 +46,7 @@ export default function Page() {
 			});
 
 			if (!response.ok) {
-				const errorData : BasicResponse = await response.json();
+				const errorData: BasicResponse = await response.json();
 				throw new Error(`Failed to fetch notes [${errorData.body.message}]`);
 			}
 
@@ -42,28 +54,37 @@ export default function Page() {
 
 			console.log(`Received ${data.length} notes`);
 			// added throttling for testing //TODO: REMOVE
-			await new Promise((resolve) => setTimeout(resolve, 1000));
+			// await new Promise((resolve) => setTimeout(resolve, 1000));
 
 			setNotes((prev) => [...prev, ...data]);
-			setHasMore(meta.total > notes.length + data.length);
-			setPage((prev) => prev + 1);
+			setFetchState((prev) => ({
+				page: prev.page + 1,
+				hasMore: meta.total > prev.page * meta.limit,
+				loading: false,
+			}));
 		} catch (error) {
 			console.error('Error fetching notes:', error);
-		} finally {
-			setLoading(false);
-		}
-	};
 
-	useEffect(() => { //TODO maybe refetch all when changing anything, react will handle resolution by key
+			setFetchState((prev) => ({
+				...prev,
+				loading: false,
+			}));
+		}
+	}, [fetchState]);
+
+	useEffect(() => {
+		//TODO maybe refetch all when changing anything, react will handle resolution by key
 		const addNoteCB = () => {
 			console.log('New note is available via EventEmitter. Fetching...');
-			setHasMore(true);
-			fetchNotes();
+			setFetchState((prev) => ({ ...prev, hasMore: true, page: 1 }));
+			setNotes([]);
 		};
 		eventEmitter.on('newNote', addNoteCB);
 
 		const deleteNoteCB = () => {
 			console.log('Some note deleted. Revalidating notes...');
+			setFetchState((prev) => ({ ...prev, hasMore: true, page: 1 }));
+			setNotes([]);
 		};
 		eventEmitter.on('deleteNote', deleteNoteCB);
 
@@ -93,6 +114,8 @@ export default function Page() {
 	}, []);
 
 	useEffect(() => {
+		if (!loaderRef.current) return;
+
 		const observer = new IntersectionObserver(
 			(entries) => {
 				if (entries[0].isIntersecting) {
@@ -103,12 +126,10 @@ export default function Page() {
 			{ threshold: 0.1 }
 		);
 
-		if (loaderRef.current) {
-			observer.observe(loaderRef.current);
-		}
+		observer.observe(loaderRef.current);
 
 		return () => observer.disconnect();
-	}, [page]);
+	}, [fetchNotes]);
 
 	const getNotePairs = () => {
 		const pairs = [];
@@ -141,9 +162,9 @@ export default function Page() {
 						))}
 					</div>
 				))}
-				{hasMore && (
+				{fetchState.hasMore && (
 					<div ref={loaderRef} className="flex items-center justify-center">
-						{loading && <NoteSkeletonGrid />}
+						{fetchState.loading && <NoteSkeletonGrid />}
 					</div>
 				)}
 			</div>
