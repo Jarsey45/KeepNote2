@@ -1,3 +1,5 @@
+import Calendar from '@/app/components/main/calendar/Calendar';
+
 export default function Page() {
-	return <h1 className="text-3xl font-bold underline">Hello Calendar!</h1>;
+	return <><Calendar /></>;
 }
