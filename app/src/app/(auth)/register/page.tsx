@@ -53,6 +53,8 @@ export default function RegisterPage() {
 
 			const json : BasicResponse = await response.json();
 
+			console.log(json);
+
 			if(json.status === 200)
 				router.push('/login');
 		} catch(error: unknown) {

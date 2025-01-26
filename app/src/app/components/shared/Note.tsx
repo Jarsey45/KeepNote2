@@ -6,6 +6,8 @@ import NoteForm, { FormData } from '@/app/components/shared/NoteForm';
 import { getRandomPastelColor } from '@/utils/_colors';
 import { eventEmitter } from '@/utils/_emitter';
 import { BasicResponse } from '@/types/NextResponse';
+import { NoteDatePicker } from '@/app/components/shared/NoteDatePicker';
+import { NoteShareForm } from '@/app/components/shared/NoteShareForm';
 
 interface NoteProps {
 	id: string;
@@ -40,6 +42,8 @@ const Note: FC<NoteProps> = ({
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const [showMenu, setShowMenu] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
+	const [showShareModal, setShowShareModal] = useState(false);
+	const [showDatePicker, setShowDatePicker] = useState(false);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -80,11 +84,13 @@ const Note: FC<NoteProps> = ({
 				eventEmitter.emit('deleteNote');
 				break;
 			case 'share': // shraed not with other user
+				setShowShareModal(true); // Show share modal
 				break;
 			case 'edit': // edits note
 				setShowEditModal(true); // Show edit modal
 				break;
 			case 'calendar': // pins to user's calendar
+				setShowDatePicker(true); // Show date picker
 				break;
 			default:
 				console.warn('Action not defined');
@@ -104,8 +110,8 @@ const Note: FC<NoteProps> = ({
 			if (!response.ok) throw new Error('Failed to update note');
 
 			const json: BasicResponse = await response.json();
-			console.log(json);
-			eventEmitter.emit('updateNote');
+
+			if (json.status === 200) eventEmitter.emit('updateNote');
 		} catch (error) {
 			console.error('Failed to update note:', error);
 			// TODO: Show error toast
@@ -176,6 +182,22 @@ const Note: FC<NoteProps> = ({
 				onSubmit={handleNoteUpdate}
 				initialData={{ title, content }}
 				mode="edit"
+			/>
+
+			<NoteDatePicker
+				isOpen={showDatePicker}
+				onClose={() => setShowDatePicker(false)}
+				onDateSelect={(date) => {
+					console.log('Note pinned to:', date);
+					setShowDatePicker(false);
+				}}
+				noteId={id}
+			/>
+
+			<NoteShareForm
+				isOpen={showShareModal}
+				onClose={() => setShowShareModal(false)}
+				noteId={id}
 			/>
 		</>
 	);

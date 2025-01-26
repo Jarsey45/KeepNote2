@@ -16,7 +16,8 @@ const FloatingActionButton = () => {
 		});
 		const json = await response.json();
 
-		// await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate API call
+		// Simulate API call
+		// await new Promise((resolve) => setTimeout(resolve, 5000));
 		console.log('New note:', json);
 		eventEmitter.emit('newNote');
 	};

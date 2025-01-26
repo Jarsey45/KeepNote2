@@ -2,6 +2,7 @@ import { UserRepository } from '@/repositories/UserRepository';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { initDB } from '@/lib/db';
+import { BasicResponse } from '@/types/NextResponse';
 
 export async function POST(request: NextRequest) {
 	console.log('test');
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json({
 				status: 400,
 				body: { message: 'Passwords do not match' },
-			});
+			} as BasicResponse);
 
 		const existingUser = await userRepository.findByEmail(email);
 
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json({
 				status: 400,
 				body: { message: 'Email already exists' },
-			});
+			} as BasicResponse);
 
 		const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -38,12 +39,12 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({
 			status: 200,
 			body: { message: 'Successfuly registered' },
-		});
+		} as BasicResponse);
 	} catch (error) {
 		console.error(error);
 		return NextResponse.json({
 			status: 500,
 			body: { message: 'Registration failed' },
-		});
+		} as BasicResponse);
 	}
 }

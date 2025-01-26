@@ -33,7 +33,10 @@ export class NoteRepository extends BaseRepository<Note> {
 	}
 
 	async findByUserWithPagination(user: User, pagination?: PaginationParams): Promise<{ notes: Note[]; total: number }> {
-		const query = this.repository.createQueryBuilder('note').where('note.userId = :userId', { userId: user.id });
+		const query = this.repository
+			.createQueryBuilder('note')
+			.where('note.userId = :userId', { userId: user.id })
+			.orderBy('note.createdAt', 'ASC');
 
 		const total = await query.getCount();
 

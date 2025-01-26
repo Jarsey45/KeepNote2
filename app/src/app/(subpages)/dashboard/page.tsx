@@ -73,24 +73,35 @@ export default function Page() {
 	}, [fetchState]);
 
 	useEffect(() => {
+
+		const revalidateNotes = () => {
+			setFetchState((prev) => ({ ...prev, hasMore: true, page: 1 }));
+			setNotes([]);
+		};
+
 		//TODO maybe refetch all when changing anything, react will handle resolution by key
 		const addNoteCB = () => {
 			console.log('New note is available via EventEmitter. Fetching...');
-			setFetchState((prev) => ({ ...prev, hasMore: true, page: 1 }));
-			setNotes([]);
+			revalidateNotes();
 		};
 		eventEmitter.on('newNote', addNoteCB);
 
 		const deleteNoteCB = () => {
 			console.log('Some note deleted. Revalidating notes...');
-			setFetchState((prev) => ({ ...prev, hasMore: true, page: 1 }));
-			setNotes([]);
+			revalidateNotes();
 		};
 		eventEmitter.on('deleteNote', deleteNoteCB);
+
+		const updateNoteCB = () => {
+			console.log('Some note updated. Revalidating notes...');
+			revalidateNotes();
+		};
+		eventEmitter.on('updateNote', updateNoteCB);
 
 		return () => {
 			eventEmitter.off('newNote', addNoteCB);
 			eventEmitter.off('deleteNote', deleteNoteCB);
+			eventEmitter.off('updateNote', updateNoteCB);
 		};
 	}, []);
 
