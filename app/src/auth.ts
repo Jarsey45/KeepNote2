@@ -11,7 +11,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 		Credentials({
 			async authorize(credentials) {
 				await initDB();
-				const { email, password } = await signInSchema.parseAsync(credentials);
+				const { email, password} = await signInSchema.parseAsync(credentials);
 
 				const userRepository = new UserRepository();
 				const user = await userRepository.findByEmail(email);
@@ -30,6 +30,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 	session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
 	pages: {
 		signIn: '/login',
+		signOut: '/logout',
 		error: '/login',
 	},
 	callbacks: {

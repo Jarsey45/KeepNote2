@@ -13,6 +13,7 @@ import { BasicResponse } from '@/types/NextResponse';
 
 const registerSchema = z
 	.object({
+		nickname: z.string().min(3, 'Nickname must be at least 3 characters'),
 		email: z.string().email('Invalid email address'),
 		password: z.string().min(6, 'Password must be at least 6 characters'),
 		confirmPassword: z.string(),
@@ -46,19 +47,16 @@ export default function RegisterPage() {
 				body: JSON.stringify(data),
 			});
 
-			if(!response.ok) {
+			if (!response.ok) {
 				const error = await response.json();
 				throw new Error(error.message || 'Registration failed');
 			}
 
-			const json : BasicResponse = await response.json();
+			const json: BasicResponse = await response.json();
 
-			console.log(json);
-
-			if(json.status === 200)
-				router.push('/login');
-		} catch(error: unknown) {
-			if(error instanceof Error) {
+			if (json.status === 200) router.push('/login');
+		} catch (error: unknown) {
+			if (error instanceof Error) {
 				// TODO: show toast
 				alert(error.message);
 			}
@@ -70,6 +68,13 @@ export default function RegisterPage() {
 	return (
 		<AuthCard>
 			<form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+				<AuthInput
+					type="text"
+					placeholder="Nickname"
+					error={errors.nickname}
+					disabled={isLoading}
+					{...register('nickname')}
+				></AuthInput>
 				<AuthInput
 					type="email"
 					placeholder="Email"

@@ -3,13 +3,9 @@ import { initDB } from '@/lib/db';
 import { NoteRepository } from '@/repositories/NoteRepository';
 import { UserRepository } from '@/repositories/UserRepository';
 import { BasicResponse } from '@/types/NextResponse';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-interface SlugIDParams {
-	params: Promise<{ id: string }>;
-}
-
-export async function POST(request: Request, { params }: SlugIDParams) {
+export async function GET(request: NextRequest) {
 	try {
 		await initDB();
 
@@ -29,19 +25,36 @@ export async function POST(request: Request, { params }: SlugIDParams) {
 				body: { message: 'User not found' },
 			} as BasicResponse);
 
-		const noteId = (await params).id;
+		const { searchParams } = new URL(request.url);
+		const startDateParam = searchParams.get('startDate');
+		const startDate = startDateParam ? new Date(startDateParam) : null;
 
-		const body = await request.json();
-		const dateCalendar = body.date;
+		const endDateParam = searchParams.get('endDate');
+		const endDate = endDateParam ? new Date(endDateParam) : null;
+
+		// make it verbose
+		console.log('startDate:', startDate);
+		console.log('endDate:', endDate);
+
+		if (startDate === null || endDate === null)
+			return NextResponse.json({
+				status: 400,
+				body: { message: 'Invalid date range' },
+			} as BasicResponse);
+
 
 		const noteRepo = new NoteRepository();
-		const updatedNote = await noteRepo.addToCalendar(noteId, dateCalendar);
+		const notes = await noteRepo.findBetweenDates(startDate, endDate);
 
-		if(!updatedNote) throw new Error('Failed to add note to calendar');
+
+		if (!notes || notes.length < 1) throw new Error('Failed to fetch notes between dates');
 
 		return NextResponse.json({
 			status: 200,
-			body: { message: 'Successfully added note to calendar' },
+			body: {
+				message: 'Successfully fetched notes',
+				data: notes,
+			 },
 		} as BasicResponse);
 
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -49,7 +62,7 @@ export async function POST(request: Request, { params }: SlugIDParams) {
 		console.error(error);
 		return NextResponse.json({
 			status: 500,
-			body: { message: 'Failed to add note to calendar' },
+			body: { message: 'Failed to fetch notes between dates' },
 		} as BasicResponse);
 	}
 }

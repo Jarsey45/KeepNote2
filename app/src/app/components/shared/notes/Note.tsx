@@ -2,12 +2,12 @@
 
 import React, { FC, MouseEvent, useEffect, useRef, useState } from 'react';
 import { MoreHorizontal, Calendar, Trash2, Edit, Share2 } from 'lucide-react';
-import NoteForm, { FormData } from '@/app/components/shared/NoteForm';
+import NoteForm, { FormData } from '@/app/components/shared/notes/options/NoteForm';
 import { getRandomPastelColor } from '@/utils/_colors';
 import { eventEmitter } from '@/utils/_emitter';
 import { BasicResponse } from '@/types/NextResponse';
-import { NoteDatePicker } from '@/app/components/shared/NoteDatePicker';
-import { NoteShareForm } from '@/app/components/shared/NoteShareForm';
+import { NoteDatePicker } from '@/app/components/shared/notes/options/NoteDatePicker';
+import { NoteShareForm } from '@/app/components/shared/notes/options/NoteShareForm';
 
 interface NoteProps {
 	id: string;
@@ -80,7 +80,6 @@ const Note: FC<NoteProps> = ({
 
 				if (!response.ok) throw new Error('Failed to delete note'); //TODO: show some toast?
 
-				console.log(await response.json());
 				eventEmitter.emit('deleteNote');
 				break;
 			case 'share': // shraed not with other user
@@ -187,18 +186,13 @@ const Note: FC<NoteProps> = ({
 			<NoteDatePicker
 				isOpen={showDatePicker}
 				onClose={() => setShowDatePicker(false)}
-				onDateSelect={(date) => {
-					console.log('Note pinned to:', date);
+				onDateSelect={() => {
 					setShowDatePicker(false);
 				}}
 				noteId={id}
 			/>
 
-			<NoteShareForm
-				isOpen={showShareModal}
-				onClose={() => setShowShareModal(false)}
-				noteId={id}
-			/>
+			<NoteShareForm isOpen={showShareModal} onClose={() => setShowShareModal(false)} noteId={id} />
 		</>
 	);
 };

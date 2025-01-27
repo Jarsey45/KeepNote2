@@ -1,5 +1,6 @@
 import React from 'react';
 import { format, isSameMonth } from 'date-fns';
+import { Note } from '@/entities/Note';
 
 // CalendarHeader Component
 interface CalendarHeaderProps {
@@ -47,18 +48,25 @@ export const WeekDays = ({ daysShortNames }: WeekDaysProps) => (
 interface DayCellProps {
 	day: Date;
 	currentDate: Date;
+	note?: Note;
 }
 
-export const DayCell = ({ day, currentDate }: DayCellProps) => {
+export const DayCell = ({ day, currentDate, note }: DayCellProps) => {
 	return (
 		<div
-			className={`min-h-16 sm:min-h-24 p-1 sm:p-2 rounded-lg border ${
+			className={`relative min-h-16 sm:min-h-24 p-1 sm:p-2 rounded-lg border ${
 				isSameMonth(day, currentDate) ? 'bg-white' : 'bg-neutral-100'
 			} ${isSameMonth(day, currentDate) ? 'hover:bg-emerald-50' : 'hover:bg-neutral-200'}`}
 		>
 			<div className="flex flex-col h-full">
 				<span className="text-xs sm:text-sm font-medium">{format(day, 'd')}</span>
 			</div>
+
+			{note && (
+				<div className={`absolute top-1/3 left-0 mt-1 w-full rounded p-1 ${note.color} hover:bg-emerald-400 cursor-pointer`}>
+					<span className="text-xs sm:text-sm font-medium block truncate">{note.title}</span>
+				</div>
+			)}
 		</div>
 	);
 };

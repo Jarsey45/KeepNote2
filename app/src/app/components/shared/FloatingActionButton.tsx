@@ -1,7 +1,7 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import NoteForm, { FormData } from '@/app/components/shared/NoteForm';
+import NoteForm, { FormData } from '@/app/components/shared/notes/options/NoteForm';
 import { useState } from 'react';
 import { eventEmitter } from '@/utils/_emitter';
 
@@ -14,11 +14,8 @@ const FloatingActionButton = () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(data),
 		});
-		const json = await response.json();
+		await response.json();
 
-		// Simulate API call
-		// await new Promise((resolve) => setTimeout(resolve, 5000));
-		console.log('New note:', json);
 		eventEmitter.emit('newNote');
 	};
 

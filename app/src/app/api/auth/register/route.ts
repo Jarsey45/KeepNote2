@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
 	console.log('test');
 	try {
 		await initDB();
-		const { email, password, confirmPassword } = await request.json();
+		const { nickname, email, password, confirmPassword } = await request.json();
 
 		const userRepository = new UserRepository();
 
@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
 
 		// insert user to db
 		await userRepository.insert({
+			nickname,
 			email,
 			password: hashedPassword,
 			role: 'default',

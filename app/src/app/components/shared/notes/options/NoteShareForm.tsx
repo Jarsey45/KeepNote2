@@ -62,7 +62,7 @@ export const NoteShareForm = ({ isOpen, onClose, noteId }: NoteShareFormProps) =
 
 	const handleShare = async () => {
 		try {
-			const response = await fetch(`/api/notes/${noteId}/share`, {
+			const response = await fetch(`/api/notes/${noteId}/shared-with`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({

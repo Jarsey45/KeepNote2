@@ -2,7 +2,7 @@ import { AuthCard } from '@/app/components/auth/AuthCard';
 import { AuthInput } from '@/app/components/auth/AuthInput';
 import { AuthButton } from '@/app/components/auth/AuthButton';
 
-import { signIn } from '@/auth';
+import { auth, signIn } from '@/auth';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
 import { isRedirectError } from 'next/dist/client/components/redirect';
@@ -11,7 +11,13 @@ interface AuthProps {
 	error?: string;
 }
 
-const LoginPage: FC<AuthProps> = (searchParams) => {
+const LoginPage: FC<AuthProps> = async (searchParams) => {
+	const session = await auth();
+
+	if(session?.user) {
+		redirect('/dashboard');
+	}
+
 	async function authenticate(formData: FormData) {
 		'use server';
 
@@ -25,8 +31,6 @@ const LoginPage: FC<AuthProps> = (searchParams) => {
 				redirect: false,
 			});
 
-			console.log(`RESULT: ${result}`);
-
 			if (!result?.error) {
 				redirect('/dashboard');
 			}
@@ -34,8 +38,7 @@ const LoginPage: FC<AuthProps> = (searchParams) => {
 			// redirect(`/login?error=${result.error}`);
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (error) {
-			if(isRedirectError(error)) throw error;
-			console.log(`ERROR: ${error}`);
+			if (isRedirectError(error)) throw error;
 			// redirect('/login?error=UnknownError');
 		}
 	}
