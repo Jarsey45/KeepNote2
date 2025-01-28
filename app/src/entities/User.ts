@@ -20,14 +20,14 @@ export class User extends BaseEntity {
 	@Column({ nullable: true })
 	nickname!: string;
 
-	@OneToMany(() => Note, (note) => note.user)
+	@OneToMany(() => Note, (note) => note.user, { onDelete: 'CASCADE' })
 	notes!: Note[];
 
-	@ManyToMany(() => User)
+	@ManyToMany(() => User, { onDelete: 'CASCADE' })
 	@JoinTable()
 	friends!: Relation<User>[];
 
-	@ManyToMany(() => Note, (note) => note.sharedWith)
+	@ManyToMany(() => Note, (note) => note.sharedWith, { onDelete: 'CASCADE' })
 	@JoinTable()
 	sharedNotes!: Relation<Note>[];
 }

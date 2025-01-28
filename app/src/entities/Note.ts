@@ -17,7 +17,7 @@ export class Note extends BaseEntity {
 	@Column()
 	color!: string;
 
-	@ManyToOne(() => User, (user) => user.notes)
+	@ManyToOne(() => User, (user) => user.notes, { onDelete: 'CASCADE' })
 	user!: Relation<User>;
 
 	@Column('simple-array', { nullable: true })
@@ -26,6 +26,6 @@ export class Note extends BaseEntity {
 	@Column({ type: 'timestamp', nullable: true })
 	calendarDate!: Date | null;
 
-	@ManyToMany(() => User, (user) => user.sharedNotes)
+	@ManyToMany(() => User, (user) => user.sharedNotes, { onDelete: 'CASCADE' })
 	sharedWith!: Relation<User>[];
 }

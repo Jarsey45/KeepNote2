@@ -6,7 +6,7 @@ import { useSharedNotesFetch } from '@/hooks/useSharedNotesFetch';
 import { useHorizontalScroll } from '@/hooks/useHorizontalScroll';
 import { NotesSharedGroups } from '@/app/components/shared/notes/NoteSharedGroup';
 
-export default function DashboardPage() {
+export default function SharedNotesPage() {
 	const { notes, fetchState, fetchNotes, revalidateNotes } = useSharedNotesFetch();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const loaderRef = useRef(null);

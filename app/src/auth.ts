@@ -11,7 +11,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 		Credentials({
 			async authorize(credentials) {
 				await initDB();
-				const { email, password} = await signInSchema.parseAsync(credentials);
+				const { email, password } = await signInSchema.parseAsync(credentials);
 
 				const userRepository = new UserRepository();
 				const user = await userRepository.findByEmail(email);
@@ -19,14 +19,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 				if (!user) throw new AuthError('Email not found.');
 
 				const passwordMatch = await bcrypt.compare(password, user.password);
-				console.log(passwordMatch);
 
 				if (!passwordMatch) throw new AuthError('Invalid credentials.');
 				return user;
 			},
 		}),
 	],
-	adapter: TypeORMAdapter(AppDataSource.options),
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	adapter: TypeORMAdapter(AppDataSource.options) as any,
 	session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
 	pages: {
 		signIn: '/login',

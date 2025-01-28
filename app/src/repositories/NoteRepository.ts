@@ -26,7 +26,7 @@ export class NoteRepository extends BaseRepository<Note> {
 			.innerJoinAndSelect('note.sharedWith', 'user')
 			.where('user.id = :userId', { userId: user.id })
 			.leftJoinAndSelect('note.user', 'noteUser')
-			.orderBy('note.createdAt', 'ASC')
+			.orderBy('note.createdAt', 'ASC');
 
 		const total = await query.getCount();
 

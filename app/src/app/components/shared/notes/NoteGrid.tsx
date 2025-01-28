@@ -5,7 +5,7 @@ import { RefObject } from 'react';
 
 interface NotesGridProps {
 	notes: NoteType[];
-	loaderRef: RefObject<HTMLDivElement | null>;
+	loaderRef?: RefObject<HTMLDivElement | null>; // optional
 	isLoading: boolean;
 	hasMore: boolean;
 }

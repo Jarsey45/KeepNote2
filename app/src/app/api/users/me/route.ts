@@ -16,16 +16,22 @@ export async function GET() {
 			} as BasicResponse);
 
 		const userRepo = new UserRepository();
-		const users = await userRepo.findAll();
+		const currentUser = await userRepo.findByEmail(session.user.email);
 
-		const filteredUsers = users.filter((user) => user.email !== session?.user?.email);
+		if (!currentUser) {
+			return NextResponse.json({
+				status: 404,
+				body: { message: 'User not found' },
+			} as BasicResponse);
+		}
 
-		if (users) {
+
+		if (currentUser) {
 			return NextResponse.json({
 				status: 200,
 				body: {
-					message: "Successfully fetched all users",
-					data: filteredUsers,
+					message: 'User fetched successfully',
+					data: currentUser,
 				},
 			} as BasicResponse);
 		}

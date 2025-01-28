@@ -1,7 +1,7 @@
 import { Skeleton } from '@nextui-org/react';
 import { getRandomPastelColor } from '@/utils/_colors';
 
-const NoteSkeleton = () => {
+export const NoteSkeleton = () => {
 	const color = getRandomPastelColor();
 
 	return (
@@ -28,7 +28,7 @@ const NoteSkeletonGrid = () => {
 	return (
 		<div className="flex gap-4 overflow-x-auto pb-4">
 			{skeletonsPattern.map((pair, columnIndex) => (
-				<div key={columnIndex} className="flex flex-col gap-4 w- 64">
+				<div key={columnIndex} className="flex flex-col gap-4 w-64">
 					{pair.map((index) => (
 						<NoteSkeleton key={index} />
 					))}

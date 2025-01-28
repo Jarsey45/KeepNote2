@@ -52,7 +52,7 @@ export async function GET(request: Request) {
 			},
 		} as SharedNotesResponse);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		return NextResponse.error();
 	}
 }

@@ -51,6 +51,9 @@ const nextConfig: NextConfig = {
 		includePaths: ['@/app/src/app/styles'],
 	},
 	serverExternalPackages: ['typeorm'],
+	experimental: {
+		reactCompiler: true,
+	},
 };
 
 export default nextConfig;

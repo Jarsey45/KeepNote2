@@ -5,7 +5,6 @@ import { initDB } from '@/lib/db';
 import { BasicResponse } from '@/types/NextResponse';
 
 export async function POST(request: NextRequest) {
-	console.log('test');
 	try {
 		await initDB();
 		const { nickname, email, password, confirmPassword } = await request.json();

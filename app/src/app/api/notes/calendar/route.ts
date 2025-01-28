@@ -32,10 +32,6 @@ export async function GET(request: NextRequest) {
 		const endDateParam = searchParams.get('endDate');
 		const endDate = endDateParam ? new Date(endDateParam) : null;
 
-		// make it verbose
-		console.log('startDate:', startDate);
-		console.log('endDate:', endDate);
-
 		if (startDate === null || endDate === null)
 			return NextResponse.json({
 				status: 400,
