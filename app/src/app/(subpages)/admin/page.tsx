@@ -60,7 +60,7 @@ export default function AdminPage() {
 	}
 
 	return (
-		<div className="p-6 max-w-7xl mx-auto">
+		<div className="p-6 w-full md:w-auto md:max-w-7xl mx-auto">
 			<h1 className="text-3xl font-bold mb-6">User Management</h1>
 			{error && <Alert color="danger" className="mb-4 bg-red-50" title={error} />}
 			<UserTable users={users} loading={loading} onDelete={deleteUser} />

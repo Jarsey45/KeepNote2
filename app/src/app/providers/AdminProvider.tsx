@@ -8,13 +8,15 @@ export default async function AdminProviderWrapper({ children }: { children: Rea
 	const session = await auth();
 	let isAdmin = false;
 
-	await initDB();
-	const userRepo = new UserRepository();
-	const user = await userRepo.findByEmail(session?.user?.email ?? '');
-	if (user === null) {
-		redirect('/login');
+	if(session?.user?.email) {
+		await initDB();
+		const userRepo = new UserRepository();
+		const user = await userRepo.findByEmail(session?.user?.email ?? '');
+		if (user === null) {
+			redirect('/login');
+		}
+		isAdmin = user.role === 'admin';
 	}
-	isAdmin = user.role === 'admin';
 
 	return <AdminProvider initialIsAdmin={isAdmin}>{children}</AdminProvider>;
 }

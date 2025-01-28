@@ -68,9 +68,10 @@ export class NoteRepository extends BaseRepository<Note> {
 		return this.repository.save(note);
 	}
 
-	async findBetweenDates(startDate: Date, endDate: Date): Promise<Note[]> {
+	async findBetweenDates(user: User, startDate: Date, endDate: Date): Promise<Note[]> {
 		return this.repository.findBy({
 			calendarDate: Between(startDate, endDate),
+			user: { id: user.id },
 		});
 	}
 }

@@ -22,7 +22,7 @@ export default function NavBar() {
 					}`}
 				/>
 			</button>
-			<Menu isOpen={isMenuOpen} />
+			<Menu isOpen={isMenuOpen} close={() => setIsMenuOpen(false)}/>
 		</header>
 	);
 }

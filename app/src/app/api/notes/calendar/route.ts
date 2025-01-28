@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
 
 
 		const noteRepo = new NoteRepository();
-		const notes = await noteRepo.findBetweenDates(startDate, endDate);
+		const notes = await noteRepo.findBetweenDates(user, startDate, endDate);
 
 
 		if (!notes || notes.length < 1) throw new Error('Failed to fetch notes between dates');

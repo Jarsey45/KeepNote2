@@ -3,9 +3,10 @@ import Note from '@/app/components/shared/notes/Note';
 
 interface NotesColumnProps {
 	notes: NoteType[];
+	isShared?: boolean;
 }
 
-export const NotesColumn = ({ notes }: NotesColumnProps) => (
+export const NotesColumn = ({ notes, isShared }: NotesColumnProps) => (
 	<div className="flex flex-col gap-4 w-64">
 		{notes.map((note) => (
 			<Note
@@ -21,6 +22,7 @@ export const NotesColumn = ({ notes }: NotesColumnProps) => (
 					})
 					.replace(/\//g, '-')}
 				color={note.color}
+				isShared={isShared}
 			/>
 		))}
 	</div>

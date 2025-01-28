@@ -46,10 +46,10 @@ export default function AccountPage() {
 
 
 	return (
-		<div className="flex flex-col min-h-screen w-full relative overflow-y-hidden">
-			<div className="flex-grow p-4 md:p-6 max-w-4xl mx-auto h-screen bg-emerald-50 inset-x-0 -bottom-32 sm:-bottom-1/4 absolute">
+		<div className="flex flex-col justify-center min-h-screen w-full relative overflow-y-hidden">
+			<div className="flex-grow h-3/4 p-4 md:p-6 max-w-4xl mx-auto bg-emerald-50 inset-x-0 absolute">
 				<div className="rounded-lg p-6 h-full">
-					<div className="space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-6 h-full">
+					<div className="space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-6 h-full overflow-y-auto">
 						{/* these should be skeletons */}
 						<BasicInfo nickname={currentUser?.nickname ?? ''} email={currentUser?.email ?? ''} id={currentUser?.id ?? ''}/>
 						<SharingStats shared={1234} received={423} />

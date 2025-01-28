@@ -20,7 +20,7 @@ export const NotesSharedGroups = ({ notes, loaderRef, isLoading, hasMore }: Note
 				<div key={userId} className="flex-none snap-start">
 					<h3 className="text-lg font-semibold text-gray-700 mb-4">{data.nickname}</h3>
 					<div className="grid grid-cols-1 gap-4">
-						<NotesGrid notes={data.notes} isLoading={isLoading} hasMore={hasMore} />
+						<NotesGrid notes={data.notes} isLoading={isLoading} hasMore={hasMore} isShared={true} />
 					</div>
 				</div>
 			))}

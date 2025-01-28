@@ -8,9 +8,10 @@ interface NotesGridProps {
 	loaderRef?: RefObject<HTMLDivElement | null>; // optional
 	isLoading: boolean;
 	hasMore: boolean;
+	isShared?: boolean;
 }
 
-export const NotesGrid = ({ notes, loaderRef, isLoading, hasMore }: NotesGridProps) => {
+export const NotesGrid = ({ notes, loaderRef, isLoading, hasMore, isShared }: NotesGridProps) => {
 	const getNotePairs = () => {
 		const pairs = [];
 		for (let i = 0; i < notes.length; i += 2) {
@@ -22,7 +23,7 @@ export const NotesGrid = ({ notes, loaderRef, isLoading, hasMore }: NotesGridPro
 	return (
 		<div className="inline-flex gap-4 pb-4">
 			{getNotePairs().map((pair, columnIndex) => (
-				<NotesColumn key={columnIndex} notes={pair} />
+				<NotesColumn key={columnIndex} notes={pair} isShared={isShared} />
 			))}
 			{hasMore && (
 				<div ref={loaderRef} className="flex items-center justify-center">

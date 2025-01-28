@@ -15,6 +15,7 @@ interface NoteProps {
 	content?: string;
 	date?: string;
 	color?: string;
+	isShared?: boolean;
 }
 
 interface ActionClickHandler {
@@ -37,6 +38,7 @@ const Note: FC<NoteProps> = ({
 		year: 'numeric',
 	}),
 	color = randomColorDefault,
+	isShared = false,
 }) => {
 	const menuRef = useRef<HTMLDivElement>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -128,13 +130,15 @@ const Note: FC<NoteProps> = ({
 						<h2 className="text-xl font-semibold text-gray-800">{title}</h2>
 						{content && <p className="text-gray-700">{content}</p>}
 					</div>
-					<button
-						ref={buttonRef}
-						onClick={handleMenuClick}
-						className="p-1 hover:bg-black/10 rounded-full transition-colors"
-					>
-						<MoreHorizontal className="w-6 h-6 text-gray-700" />
-					</button>
+					{!isShared && (
+						<button
+							ref={buttonRef}
+							onClick={handleMenuClick}
+							className="p-1 hover:bg-black/10 rounded-full transition-colors"
+						>
+							<MoreHorizontal className="w-6 h-6 text-gray-700" />
+						</button>
+					)}
 				</div>
 
 				{/* Popup Menu */}
