@@ -53,3 +53,33 @@ export async function POST(request: Request, { params }: SlugIDParams) {
 		} as BasicResponse);
 	}
 }
+
+/**
+ * @swagger
+ * /api/notes/{id}/calendar:
+ *   post:
+ *     summary: Add note to calendar
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - date
+ *             properties:
+ *               date:
+ *                 type: string
+ *                 format: date-time
+ *     responses:
+ *       200:
+ *         description: Note added to calendar
+ */

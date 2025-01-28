@@ -62,3 +62,28 @@ export async function GET(request: NextRequest) {
 		} as BasicResponse);
 	}
 }
+
+/**
+ * @swagger
+ * /api/notes/calendar:
+ *   get:
+ *     summary: Get notes for calendar range
+ *     parameters:
+ *       - name: startDate
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *       - name: endDate
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of calendar notes
+ */

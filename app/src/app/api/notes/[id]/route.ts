@@ -125,3 +125,48 @@ export async function PUT(request: Request, { params }: SlugIDParams) {
 		} as BasicResponse);
 	}
 }
+
+/**
+ * @swagger
+ * /api/notes/{id}:
+ *   delete:
+ *     summary: Delete note
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Note deleted successfully
+ *   put:
+ *     summary: Update note
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - content
+ *             properties:
+ *               title:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Note updated successfully
+ */

@@ -102,3 +102,47 @@ export async function GET(request: Request) {
 		return NextResponse.error();
 	}
 }
+
+/**
+ * @swagger
+ * /api/notes:
+ *   get:
+ *     summary: Get user's notes
+ *     parameters:
+ *       - name: page
+ *         in: query
+ *         schema:
+ *           type: integer
+ *       - name: limit
+ *         in: query
+ *         schema:
+ *           type: integer
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of notes
+ *       401:
+ *         description: Unauthorized
+ *   post:
+ *     summary: Create new note
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - content
+ *             properties:
+ *               title:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Note created successfully
+ */

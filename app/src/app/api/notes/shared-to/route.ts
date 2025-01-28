@@ -56,3 +56,25 @@ export async function GET(request: Request) {
 		return NextResponse.error();
 	}
 }
+
+
+/**
+ * @swagger
+ * /api/notes/shared-to:
+ *   get:
+ *     summary: Get notes shared with user
+ *     parameters:
+ *       - name: page
+ *         in: query
+ *         schema:
+ *           type: integer
+ *       - name: limit
+ *         in: query
+ *         schema:
+ *           type: integer
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of shared notes
+ */

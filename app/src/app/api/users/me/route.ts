@@ -40,3 +40,15 @@ export async function GET() {
 		return NextResponse.error();
 	}
 }
+
+/**
+ * @swagger
+ * /api/users/me:
+ *   get:
+ *     summary: Get current user info
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Current user details
+ */

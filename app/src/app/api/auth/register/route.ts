@@ -48,3 +48,39 @@ export async function POST(request: NextRequest) {
 		} as BasicResponse);
 	}
 }
+
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *               - confirmPassword
+ *               - nickname
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *                 minLength: 6
+ *               nickname:
+ *                 type: string
+ *                 minLength: 3
+ *     responses:
+ *       200:
+ *         description: User registered successfully
+ *       400:
+ *         description: Invalid input or email already exists
+ *       500:
+ *         description: Server error
+ */

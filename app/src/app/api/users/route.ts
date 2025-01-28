@@ -34,3 +34,16 @@ export async function GET() {
 		return NextResponse.error();
 	}
 }
+
+
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get all users
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of users
+ */

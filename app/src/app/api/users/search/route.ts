@@ -40,3 +40,21 @@ export async function GET(request: Request) {
 		return NextResponse.error();
 	}
 }
+
+/**
+ * @swagger
+ * /api/users/search:
+ *   get:
+ *     summary: Search users by email
+ *     parameters:
+ *       - name: term
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of matching users
+ */

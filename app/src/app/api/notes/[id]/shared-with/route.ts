@@ -60,3 +60,34 @@ export async function POST(request: Request, { params }: SlugIDParams) {
 		} as BasicResponse);
 	}
 }
+
+/**
+ * @swagger
+ * /api/notes/{id}/shared-with:
+ *   post:
+ *     summary: Share note with users
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userIds
+ *             properties:
+ *               userIds:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: Note shared successfully
+ */
