@@ -11,7 +11,9 @@
 		"migration:generate": "npm run typeorm migration:generate -- -d src/lib/db-typeorm.ts ./src/migrations/Migration",
 		"migration:run": "npm run typeorm migration:run -- -d src/lib/db-typeorm.ts",
 		"migration:revert": "npm run typeorm migration:revert",
-		"test": "jest"
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage"
 	},
 	"dependencies": {
 		"@auth/typeorm-adapter": "^2.7.4",
@@ -45,6 +47,7 @@
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/react": "^16.1.0",
 		"@types/bcrypt": "^5.0.2",
+		"@types/jest": "^29.5.14",
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
