@@ -1,5 +1,6 @@
 import { Button } from '@nextui-org/react';
 import { InfoCard } from '@/app/components/main/account/InfoCard';
+import { redirect } from 'next/navigation';
 
 type CreditsHelpProps = {
 	onResetPassword: () => void;
@@ -19,8 +20,11 @@ export const CreditsHelp = ({ onResetPassword, onDeleteAccount }: CreditsHelpPro
 				<Button className="bg-yellow-200" onPress={onResetPassword}>
 					Reset Password
 				</Button>
-				<Button onPress={onDeleteAccount} className='bg-red-500'>
+				<Button onPress={onDeleteAccount} className="bg-red-500">
 					Delete Account
+				</Button>
+				<Button onPress={() => redirect('/logout')} className="bg-sky-500">
+					Log Out
 				</Button>
 			</div>
 		</div>

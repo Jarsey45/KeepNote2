@@ -59,7 +59,7 @@ const Calendar = () => {
 
 	useEffect(() => {
 		fetchNotes();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	if (isLoading) {
@@ -77,8 +77,10 @@ const Calendar = () => {
 				<WeekDays daysShortNames={weekDays} />
 				<div className="grid grid-cols-7 gap-1 sm:gap-4">
 					{allDays.map((day) => {
-						const note = notes.find((n) => isSameDay(n.calendarDate as Date, day));
-						return <DayCell key={format(day, 'yyyy-MM-dd')} day={day} currentDate={currentDate} note={note}/>;
+						const note = !notes
+							? notes
+							: notes.find((n) => isSameDay(n.calendarDate as Date, day));
+						return <DayCell key={format(day, 'yyyy-MM-dd')} day={day} currentDate={currentDate} note={note} />;
 					})}
 				</div>
 			</div>

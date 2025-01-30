@@ -17,16 +17,15 @@ export default function AdminPage() {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		if(!adminContext.isAdmin)
-			router.push('/dashboard');
+		if (!adminContext.isAdmin) router.push('/dashboard');
 
 		fetchUsers();
 	}, []);
 
-
 	const fetchUsers = async () => {
 		try {
 			const response = await fetch('/api/users');
+
 			if (!response.ok) {
 				const {
 					body: { message },
@@ -34,7 +33,9 @@ export default function AdminPage() {
 				throw new Error(message);
 			}
 
-			const {body: { data }}: BasicResponse = await response.json();
+			const {
+				body: { data },
+			}: BasicResponse = await response.json();
 			setUsers(data as User[]);
 		} catch (err) {
 			setError(err instanceof Error ? err.message : 'Failed to fetch users');
@@ -48,7 +49,22 @@ export default function AdminPage() {
 			const response = await fetch(`/api/users/${userId}`, {
 				method: 'DELETE',
 			});
-			if (!response.ok) throw new Error('Failed to delete user');
+
+			if (!response.ok) {
+				const {
+					body: { message },
+				}: BasicResponse = await response.json();
+				throw new Error(message);
+			}
+
+			const {
+				status,
+				body: { message },
+			}: BasicResponse = await response.json();
+
+			if (status !== 200) throw new Error(message);
+
+			// optimistic update
 			setUsers(users.filter((user) => user.id !== userId));
 		} catch (err) {
 			setError(err instanceof Error ? err.message : 'Failed to delete user');

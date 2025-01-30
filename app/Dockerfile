@@ -12,7 +12,7 @@ COPY . .
 RUN echo "y" | npx auth secret
 
 # Make the startup script executable
-COPY startApp.sh .
+COPY startApp.sh ./
 RUN chmod +x startApp.sh
 
 EXPOSE 3000
