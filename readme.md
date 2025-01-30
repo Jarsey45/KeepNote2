@@ -83,6 +83,11 @@ docker-compose up -d
 docker exec -it keepnote2-app-1 npm run migration:run
 ```
 
+5. Run tests (optional):
+```bash
+docker exec -it keepnote2-app-1 npm run test
+```
+
 ### Accessing Services
 - Web Application: http://localhost:3000
 - PgAdmin: http://localhost:5050
