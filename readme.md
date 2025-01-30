@@ -158,7 +158,6 @@ erDiagram
     User }|--|| User : friends
     User }|--|| Note : shared_with
 ```
-## Screenshots
 
 ## Screenshots
 
