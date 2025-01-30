@@ -2,8 +2,6 @@
 
 A modern note-taking web application built with Next.js 15 and React 19 that allows users to create, share, and organize notes with calendar integration.
 
-![KeepNote Dashboard](placeholder-dashboard.png)
-
 ## Features
 
 ### User Management
@@ -24,8 +22,6 @@ A modern note-taking web application built with Next.js 15 and React 19 that all
 - User management dashboard
 - Account deletion capabilities
 - System monitoring
-
-![Admin Dashboard](placeholder-admin.png)
 
 ## Technology Stack
 
@@ -90,7 +86,7 @@ docker exec -it keepnote2-app-1 npm run migration:run
 ### Accessing Services
 - Web Application: http://localhost:3000
 - PgAdmin: http://localhost:5050
-- API Documentation: http://localhost:3000/api-docs
+- API Documentation (swagger): http://localhost:3000/api-docs
 
 ## Database Schema
 
@@ -163,6 +159,69 @@ erDiagram
     User }|--|| Note : shared_with
 ```
 ## Screenshots
+
+## Screenshots
+
+### 🖥️ Desktop Views
+
+#### Authentication
+<div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0;">
+  <img src="/screenshots/login-desktop.png" alt="Login Screen" width="400" />
+  <img src="/screenshots/register-desktop.png" alt="Register Screen" width="400" />
+</div>
+
+#### Core Features
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; margin: 20px 0;">
+  <div style="text-align: center;">
+    <img src="/screenshots/dashboard-desktop.png" alt="Dashboard" width="800" />
+    <p><em>Dashboard - Create and manage your notes</em></p>
+  </div>
+  
+  <div style="text-align: center;">
+    <img src="/screenshots/shared-desktop.png" alt="Shared Notes" width="800" />
+    <p><em>Shared Notes - View notes shared by other users</em></p>
+  </div>
+  
+  <div style="text-align: center;">
+    <img src="/screenshots/calendar-desktop.png" alt="Calendar View" width="800" />
+    <p><em>Calendar - Organize notes by date</em></p>
+  </div>
+</div>
+
+#### User Management
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; margin: 20px 0;">
+  <div style="text-align: center;">
+    <img src="/screenshots/account-desktop.png" alt="Account Settings" width="800" />
+    <p><em>Account Settings - Manage your profile</em></p>
+  </div>
+  
+  <div style="text-align: center;">
+    <img src="/screenshots/admin-desktop.png" alt="Admin Panel" width="800" />
+    <p><em>Admin Panel - User management and system overview</em></p>
+  </div>
+</div>
+
+### 📱 Mobile Views
+
+#### Authentication
+<div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0;">
+  <img src="/screenshots/login-mobile.png" alt="Mobile Login" width="200" />
+  <img src="/screenshots/register-mobile.png" alt="Mobile Register" width="200" />
+</div>
+
+#### Navigation and Features
+<div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0;">
+  <img src="/screenshots/menu-mobile.png" alt="Mobile Menu" width="200" />
+  <img src="/screenshots/dashboard-mobile.png" alt="Mobile Dashboard" width="200" />
+  <img src="/screenshots/shared-mobile.png" alt="Mobile Shared Notes" width="200" />
+</div>
+
+#### Additional Views
+<div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0;">
+  <img src="/screenshots/calendar-mobile.png" alt="Mobile Calendar" width="200" />
+  <img src="/screenshots/account-mobile.png" alt="Mobile Account" width="200" />
+  <img src="/screenshots/admin-mobile.png" alt="Mobile Admin" width="200" />
+</div>
 
 ## Contributing
 
