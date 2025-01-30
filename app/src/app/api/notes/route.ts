@@ -108,6 +108,7 @@ export async function GET(request: Request) {
  * /api/notes:
  *   get:
  *     summary: Get user's notes
+ *     tags: [Notes]
  *     parameters:
  *       - name: page
  *         in: query
@@ -126,6 +127,7 @@ export async function GET(request: Request) {
  *         description: Unauthorized
  *   post:
  *     summary: Create new note
+ *     tags: [Notes]
  *     security:
  *       - BearerAuth: []
  *     requestBody:

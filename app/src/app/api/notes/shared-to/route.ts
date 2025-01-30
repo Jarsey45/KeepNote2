@@ -63,6 +63,7 @@ export async function GET(request: Request) {
  * /api/notes/shared-to:
  *   get:
  *     summary: Get notes shared with user
+ *     tags: [Notes]
  *     parameters:
  *       - name: page
  *         in: query

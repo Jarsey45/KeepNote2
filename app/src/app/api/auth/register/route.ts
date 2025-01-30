@@ -73,6 +73,9 @@ export async function POST(request: NextRequest) {
  *               password:
  *                 type: string
  *                 minLength: 6
+ *               confirmPassword:
+ *                 type: string
+ *                 minLength: 6
  *               nickname:
  *                 type: string
  *                 minLength: 3

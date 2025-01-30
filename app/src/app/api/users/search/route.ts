@@ -46,6 +46,7 @@ export async function GET(request: Request) {
  * /api/users/search:
  *   get:
  *     summary: Search users by email
+ *     tags: [Users]
  *     parameters:
  *       - name: term
  *         in: query

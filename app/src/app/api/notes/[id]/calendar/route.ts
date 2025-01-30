@@ -59,6 +59,7 @@ export async function POST(request: Request, { params }: SlugIDParams) {
  * /api/notes/{id}/calendar:
  *   post:
  *     summary: Add note to calendar
+ *     tags: [Notes, Calendar]
  *     parameters:
  *       - name: id
  *         in: path

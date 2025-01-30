@@ -68,6 +68,7 @@ export async function GET(request: NextRequest) {
  * /api/notes/calendar:
  *   get:
  *     summary: Get notes for calendar range
+ *     tags: [Notes, Calendar]
  *     parameters:
  *       - name: startDate
  *         in: query

@@ -131,6 +131,7 @@ export async function PUT(request: Request, { params }: SlugIDParams) {
  * /api/notes/{id}:
  *   delete:
  *     summary: Delete note
+ *     tags: [Notes]
  *     parameters:
  *       - name: id
  *         in: path
@@ -144,6 +145,7 @@ export async function PUT(request: Request, { params }: SlugIDParams) {
  *         description: Note deleted successfully
  *   put:
  *     summary: Update note
+ *     tags: [Notes]
  *     parameters:
  *       - name: id
  *         in: path

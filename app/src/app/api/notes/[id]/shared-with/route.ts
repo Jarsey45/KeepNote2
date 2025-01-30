@@ -42,7 +42,7 @@ export async function POST(request: Request, { params }: SlugIDParams) {
 		const body = await request.json();
 		const userIds = body.userIds;
 
-		for(const userId of userIds) {
+		for (const userId of userIds) {
 			await userRepo.addSharedNote(userId, noteToShare);
 		}
 
@@ -66,6 +66,7 @@ export async function POST(request: Request, { params }: SlugIDParams) {
  * /api/notes/{id}/shared-with:
  *   post:
  *     summary: Share note with users
+ *     tags: [Notes]
  *     parameters:
  *       - name: id
  *         in: path

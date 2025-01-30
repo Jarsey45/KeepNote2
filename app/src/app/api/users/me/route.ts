@@ -46,6 +46,7 @@ export async function GET() {
  * /api/users/me:
  *   get:
  *     summary: Get current user info
+ *     tags: [Users]
  *     security:
  *       - BearerAuth: []
  *     responses:

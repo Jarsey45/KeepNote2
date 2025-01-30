@@ -13,6 +13,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Respon
  * /api:
  *   get:
  *     summary: Returns a welcome message
+ *     tags: [Default]
  *     description: A simple endpoint to test the API.
  *     responses:
  *       200:
