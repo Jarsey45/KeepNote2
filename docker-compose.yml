@@ -7,8 +7,8 @@ services:
       - "${APP_PORT}:3000"
     volumes:
       - ./app:/app
-      - /app/node_modules
-      - /app/.next
+      - app_node-modules:/app/node_modules
+      - app_dot-next:/app/.next
     environment:
       - NODE_ENV=${NODE_ENV}
       - DB_HOST=${DB_HOST}
@@ -21,14 +21,17 @@ services:
       - JWT_SECRET=${JWT_SECRET}
       - WATCHPACK_POLLING=true
       - CHOKIDAR_USEPOLLING=true
+      - NEXT_TELEMETRY_DISABLED=1
+    security_opt:
+      - no-new-privileges=true
     depends_on:
       - postgres
       # - redis
 
   postgres:
     image: postgres:latest
-    ports:
-      - "${DB_PORT}:5432"
+    # ports:
+      # - "${DB_PORT}:5432"
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -57,5 +60,7 @@ services:
 
 volumes:
   postgres_data:
-  redis_data:
-  pgadmin_data:
+  app_node-modules:
+  app_dot-next:
+  # redis_data:
+  # pgadmin_data:

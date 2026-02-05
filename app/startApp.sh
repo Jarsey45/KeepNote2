@@ -2,7 +2,7 @@
 
 npm install --include=dev
 
-npm run migration:generate
+# npm run migration:generate
 npm run migration:run
 
 export NEXT_DIR="./node_modules/.bin"

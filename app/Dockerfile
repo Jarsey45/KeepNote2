@@ -5,13 +5,11 @@ WORKDIR /app
 RUN apk add --no-cache --upgrade python3 make g++ libc6-compat bash
 
 COPY package*.json ./
-RUN npm install --force
+RUN npm install
 
 COPY . .
 
 RUN echo "y" | npx auth secret
-
-ENV NEXT_TELEMETRY_DISABLED 1
 
 # Make the startup script executable
 COPY startApp.sh ./
