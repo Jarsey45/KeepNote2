@@ -4,14 +4,14 @@ import { AuthButton } from '@/app/components/auth/AuthButton';
 
 import { auth, signIn } from '@/auth';
 import { redirect } from 'next/navigation';
-import { FC } from 'react';
-import { isRedirectError } from 'next/dist/client/components/redirect';
+import { isRedirectError } from 'next/dist/client/components/redirect-error';
 
-interface AuthProps {
-	error?: string;
+interface PageProps {
+	searchParams: Promise<{ error?: string }>;
 }
 
-const LoginPage: FC<AuthProps> = async (searchParams) => {
+export default async function LoginPage({ searchParams }: PageProps) {
+	const { error } = await searchParams;
 	const session = await auth();
 
 	if(session?.user) {
@@ -46,9 +46,9 @@ const LoginPage: FC<AuthProps> = async (searchParams) => {
 	return (
 		<AuthCard>
 			<form className="mt-8 space-y-6" action={authenticate}>
-				{searchParams?.error && (
+				{error && (
 					<div className="rounded-md bg-red-50 p-4 text-sm text-red-500">
-						{searchParams.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Failed to sign in'}
+						{error === 'CredentialsSignin' ? 'Invalid email or password' : 'Failed to sign in'}
 					</div>
 				)}
 				<AuthInput name="email" type="email" placeholder="Email"></AuthInput>
@@ -63,6 +63,4 @@ const LoginPage: FC<AuthProps> = async (searchParams) => {
 			</div>
 		</AuthCard>
 	);
-};
-
-export default LoginPage;
+}

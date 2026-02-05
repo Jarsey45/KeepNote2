@@ -3,7 +3,7 @@ import type { Relation } from 'typeorm';
 import { Note } from './Note';
 import { BaseEntity } from './base.entity';
 
-@Entity()
+@Entity('user')
 export class User extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string;
@@ -24,10 +24,10 @@ export class User extends BaseEntity {
 	notes!: Note[];
 
 	@ManyToMany(() => User, { onDelete: 'CASCADE' })
-	@JoinTable()
+	@JoinTable({ name: 'user_friends' })
 	friends!: Relation<User>[];
 
 	@ManyToMany(() => Note, (note) => note.sharedWith, { onDelete: 'CASCADE' })
-	@JoinTable()
+	@JoinTable({ name: 'user_shared_notes' })
 	sharedNotes!: Relation<Note>[];
 }

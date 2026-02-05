@@ -3,7 +3,7 @@ import type { Relation } from 'typeorm';
 import { User } from './User';
 import { BaseEntity } from './base.entity';
 
-@Entity()
+@Entity('note')
 export class Note extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string;
